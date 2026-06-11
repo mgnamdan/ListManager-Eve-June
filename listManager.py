@@ -13,16 +13,51 @@ def loadList():
         return listIn
 
 
-def saveList():
-    pass
+def saveList(listIn):
+    with open("savedList.txt", "w") as newSave:
+        newSave.writelines(listIn)
 
 
-def displayList():
-    pass
+def displayList(listIn):
+    print("")
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    print("")
+    print("                    USER LIST 1")
+    print("")
+    for idx in range(len(listIn)):
+        print(f"                    {idx+1}. {listIn[idx]}")
+    print("")
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    print("")
 
 
-def addItems():
-    pass
+def addItems(listIn):
+    addingItems = True
+    currentList = listIn
+
+    while addingItems:
+        displayList(currentList)
+        print("")
+        print("Enter an item to add:")
+        toAdd = input(" --> ")
+        currentList.append(toAdd)
+
+        validResp = False
+        if not validResp:
+            print("")
+            print("Add another item? (y/n)")
+            resp = input(" --> ").lower()
+
+            if resp in ["y", "yes"]:
+                validResp = True
+            elif resp in ["n", "no"]:
+                validResp = True
+                addingItems = False
+            else:
+                print("")
+                print("Invalid response - please try again.")
+
+    saveList(currentList)
 
 
 def removeItems():
@@ -68,9 +103,9 @@ def main():
         userChoice = input(" --> ").lower()
 
         if userChoice in ["1", "1.", "1. view list", "1 view list", "view list"]:
-            displayList()
+            displayList(groceries)
         elif userChoice in ["2", "2.", "2. add items", "2 add items", "add items"]:
-            addItems()
+            addItems(groceries)
         elif userChoice in ["3", "3.", "3. remove items", "3 remove items", "remove items"]:
             removeItems()
         elif userChoice in ["4", "4.", "4. edit items", "4 edit items", "edit items"]:

@@ -15,7 +15,11 @@ def loadList():
 
 def saveList(listIn):
     with open("savedList.txt", "w") as newSave:
-        newSave.writelines(listIn)
+        for idx in range(len(listIn)):
+            if idx != len(listIn) - 1:
+                newSave.write(f"{listIn[idx]}\n")
+            else:
+                newSave.write(listIn[idx])
 
 
 def displayList(listIn):
@@ -34,13 +38,15 @@ def displayList(listIn):
 def addItems(listIn):
     addingItems = True
     currentList = listIn
+    displayList(currentList)
 
     while addingItems:
-        displayList(currentList)
         print("")
         print("Enter an item to add:")
         toAdd = input(" --> ")
         currentList.append(toAdd)
+
+        displayList(currentList)
 
         validResp = False
         if not validResp:
